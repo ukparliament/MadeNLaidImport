@@ -13,10 +13,10 @@
     {
         static void Main(string[] args)
         {
-            string sparqlEndpoint = ConfigurationManager.AppSettings["SparqlEndpoint"];
-            int dayOffset = int.Parse(ConfigurationManager.AppSettings["DayOffset"]);
-            var from_date = DateTime.Today.AddDays(dayOffset).ToString("yyyy-MM-d");
-            var to_date = DateTime.Today.ToString("yyyy-MM-d");
+            string sparqlEndpoint = ConfigurationManager.AppSettings["MadeNLaidSparqlEndpoint"];
+            int dayOffset = int.Parse(ConfigurationManager.AppSettings["MadeNLaidDayOffset"]);
+            var from_date = DateTime.Today.AddDays(dayOffset).ToString("yyyy-MM-dd");
+            var to_date = DateTime.Today.ToString("yyyy-MM-dd");
             string query = $@"PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
                 PREFIX :<https://id.parliament.uk/schema/>
                 PREFIX id:<https://id.parliament.uk/>
@@ -38,7 +38,7 @@
                 var results = connector.Query(query) as SparqlResultSet;
                 if (results.Any())
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString;
+                    string connectionString = ConfigurationManager.ConnectionStrings["MadeNLaidSqlServer"].ConnectionString;
                     Console.WriteLine($"Sql: {connectionString}");
                     SqlConnection connection = new SqlConnection(connectionString);
                     connection.Open();
